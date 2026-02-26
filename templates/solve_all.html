@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Все задачи - Вариант 2{% endblock %}
+
+{% block content %}
+<h1>📚 Все задачи - Вариант 2</h1>
+
+<div class="nav-links">
+    <a href="/" class="btn">← К форме</a>
+    <a href="/task6" class="btn btn-orange">Показать Задачу 6 (все точки)</a>
+</div>
+
+{% for task in tasks %}
+<div class="card">
+    <h2>📌 {{ task.name }}</h2>
+    <div class="result">
+        <p>При <strong>X = {{ task.x }}</strong> → <span class="result-value">Y = {{ task.y }}</span></p>
+    </div>
+    <img src="data:image/png;base64,{{ task.image_base64 }}" alt="{{ task.name }}">
+</div>
+{% endfor %}
+{% endblock %}

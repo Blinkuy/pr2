@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Задача 6 - Итоговый график{% endblock %}
+
+{% block content %}
+<h1>📊 Задача 6 - Итоговый график</h1>
+
+<div class="card">
+    <h2>🗺️ Координатная плоскость</h2>
+    <img src="data:image/png;base64,{{ image_base64 }}" alt="Задача 6">
+</div>
+
+<div class="card">
+    <h2>📋 Таблица результатов</h2>
+    <table>
+        <tr><th>№</th><th>Задача</th><th>X</th><th>Y</th></tr>
+        {% for row in results %}
+        <tr><td>{{ row.num }}</td><td>{{ row.name }}</td><td>{{ row.x }}</td><td>{{ row.y }}</td></tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="card nav-links">
+    <a href="/" class="btn">← К форме</a>
+    <a href="/solve_all" class="btn btn-purple">Все задачи отдельно</a>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Интерполяция Лагранжа - Главная{% endblock %}
+
+{% block content %}
+<h1>🔢 Интерполяция Лагранжа</h1>
+
+<div class="card">
+    <h2>📝 Ввод данных</h2>
+    <form action="/solve" method="post">
+        <label for="task_name">Название задачи:</label>
+        <input type="text" id="task_name" name="task_name" 
+               placeholder="Например: Задача 1" value="{{ task_name | default('Задача 1') }}">
+        
+        <label for="points">Точки (формат: x,y на каждой строке):</label>
+        <textarea id="points" name="points" placeholder="6,-12&#10;14,6&#10;16,8">{{ points | default('') }}</textarea>
+        <div class="hint">Каждая точка с новой строки, x и y через запятую</div>
+        
+        <label for="target_x">Найти Y при X = </label>
+        <input type="number" id="target_x" name="target_x" 
+               step="0.1" placeholder="12" value="{{ target_x | default(12) }}">
+        
+        <button type="submit" class="btn">🚀 Решить</button>
+        <button type="button" class="btn btn-secondary" onclick="clearForm()">Очистить</button>
+    </form>
+    
+    <h3>📌 Быстрые пресеты (Вариант 2):</h3>
+    <div class="presets">
+        <button class="btn btn-purple" onclick="loadPreset(1)">Задача 1</button>
+        <button class="btn btn-purple" onclick="loadPreset(2)">Задача 2</button>
+        <button class="btn btn-purple" onclick="loadPreset(3)">Задача 3</button>
+        <button class="btn btn-purple" onclick="loadPreset(4)">Задача 4</button>
+        <button class="btn btn-purple" onclick="loadPreset(5)">Задача 5</button>
+    </div>
+</div>
+
+<div class="card">
+    <h2>ℹ️ О методе</h2>
+    <p><strong>Интерполяция Лагранжа</strong> — универсальный метод для нахождения 
+    значения функции в точке по известным узлам.</p>
+    <ul>
+        <li>2 точки → линейная интерполяция</li>
+        <li>3 точки → квадратичная интерполяция</li>
+        <li>N точек → многочлен степени N-1</li>
+    </ul>
+</div>
+
+<script>
+    const presets = {
+        1: { name: "Задача 1", points: "6,-12\n14,6\n16,8", x: 12 },
+        2: { name: "Задача 2", points: "2,-5\n14,-0.5", x: 10 },
+        3: { name: "Задача 3", points: "12,-4\n18,6", x: 15 },
+        4: { name: "Задача 4", points: "6,2\n14,6\n15,8", x: 9 },
+        5: { name: "Задача 5", points: "-10,-7.2\n-4,-5\n16,-2", x: 14 }
+    };
+    
+    function loadPreset(num) {
+        const p = presets[num];
+        document.getElementById('task_name').value = p.name;
+        document.getElementById('points').value = p.points;
+        document.getElementById('target_x').value = p.x;
+    }
+    
+    function clearForm() {
+        document.getElementById('task_name').value = '';
+        document.getElementById('points').value = '';
+        document.getElementById('target_x').value = '';
+    }
+</script>
+{% endblock %}

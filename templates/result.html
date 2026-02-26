@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}{{ task_name }} - Результат{% endblock %}
+
+{% block content %}
+<h1>✅ {{ task_name }} - Результат</h1>
+
+<div class="card">
+    <div class="result">
+        <h3>📊 Ответ:</h3>
+        <p>При <strong>X = {{ target_x }}</strong></p>
+        <p class="result-value">Y = {{ calculated_y }}</p>
+    </div>
+    
+    <h3>📈 График:</h3>
+    <img src="data:image/png;base64,{{ image_base64 }}" alt="График интерполяции">
+    
+    <h3>📋 Исходные данные:</h3>
+    <table>
+        <tr><th>№</th><th>X</th><th>Y</th></tr>
+        {% for point in points %}
+        <tr><td>{{ loop.index }}</td><td>{{ point[0] }}</td><td>{{ point[1] }}</td></tr>
+        {% endfor %}
+        <tr style="background: #d5f5e3; font-weight: bold;">
+            <td>★</td><td>{{ target_x }}</td><td>{{ calculated_y }}</td>
+        </tr>
+    </table>
+</div>
+
+<div class="card nav-links">
+    <a href="/" class="btn">← Вернуться к форме</a>
+    <a href="/solve_all" class="btn btn-purple">Решить все 5 задач</a>
+</div>
+{% endblock %}
